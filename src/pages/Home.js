@@ -1,8 +1,7 @@
+// src/pages/Home.js
 import React, { useState, useEffect } from 'react';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
-import { auth } from '../firebase/firebaseConfig'; // Adjust import as needed
-
-const db = getFirestore();
+import { db } from '../firebase/firebaseConfig'; // Import the firestore object as db
+import { collection, getDocs } from 'firebase/firestore';
 
 function Home() {
   const [budgets, setBudgets] = useState([]);

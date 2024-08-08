@@ -1,9 +1,10 @@
+// src/pages/Goals.js
 import React, { useState, useEffect } from 'react';
 import GoalForm from '../components/GoalForm';
-import { fetchDocuments } from '../firebase/firebaseService';
 import GoalTracker from '../components/GoalTracker';
+import { fetchDocuments } from '../firebase/firebaseService';
 
-function Goals() {
+const Goals = () => {
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -15,7 +16,7 @@ function Goals() {
         setGoals(goalList);
       } catch (err) {
         setError('Failed to load goals. Please try again later.');
-        console.error('Error fetching documents:', err);
+        console.error('Error fetching goals:', err);
       } finally {
         setLoading(false);
       }
@@ -47,6 +48,6 @@ function Goals() {
       </div>
     </div>
   );
-}
+};
 
 export default Goals;

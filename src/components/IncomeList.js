@@ -2,7 +2,7 @@ import React from 'react';
 
 function IncomeList({ incomes }) {
   return (
-    <div>
+    <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg">
       <h2 className="text-3xl font-semibold text-gray-800 mb-4">Income List</h2>
       <ul className="space-y-4">
         {incomes.length > 0 ? (

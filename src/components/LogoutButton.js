@@ -1,22 +1,20 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
-import { FaSignOutAlt } from 'react-icons/fa';
-import { motion } from 'framer-motion';
+// src/components/LogoutButton.js
+import React from 'react';
+import { useAuth } from '../context/AuthContext'; // Ensure correct import
 
 const LogoutButton = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useAuth();
 
-  if (!user) return null; // Hide button if no user is logged in
+  const handleLogout = async () => {
+    // Implement logout functionality here
+  };
 
   return (
-    <motion.button
-      onClick={logout}
-      className="p-2 bg-red-600 text-white rounded hover:bg-red-700 transition duration-300 flex items-center"
-      whileHover={{ scale: 1.1 }}
-    >
-      <FaSignOutAlt className="mr-2" />
-      Logout
-    </motion.button>
+    user ? (
+      <button onClick={handleLogout} className="bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
+        Logout
+      </button>
+    ) : null
   );
 };
 

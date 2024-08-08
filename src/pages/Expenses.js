@@ -1,15 +1,22 @@
+// src/pages/Expenses.js
 import React, { useState, useEffect } from 'react';
 import ExpenseForm from '../components/ExpenseForm';
-import { fetchDocuments } from '../firebase/firebaseService';
 import ExpenseList from '../components/ExpenseList';
+import { fetchDocuments } from '../firebase/firebaseService';
 
-function Expenses() {
+const Expenses = () => {
   const [expenses, setExpenses] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchExpenses = async () => {
-      const expenseList = await fetchDocuments('expenses');
-      setExpenses(expenseList);
+      try {
+        const expenseList = await fetchDocuments('expenses');
+        setExpenses(expenseList);
+      } catch (err) {
+        setError('Failed to load expenses. Please try again later.');
+        console.error('Error fetching expenses:', err);
+      }
     };
 
     fetchExpenses();
@@ -28,6 +35,6 @@ function Expenses() {
       </div>
     </div>
   );
-}
+};
 
 export default Expenses;

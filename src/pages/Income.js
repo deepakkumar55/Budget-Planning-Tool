@@ -1,15 +1,22 @@
+// src/pages/Income.js
 import React, { useState, useEffect } from 'react';
 import IncomeForm from '../components/IncomeForm';
-import { fetchDocuments } from '../firebase/firebaseService';
 import IncomeList from '../components/IncomeList';
+import { fetchDocuments } from '../firebase/firebaseService';
 
-function Income() {
+const Income = () => {
   const [incomeRecords, setIncomeRecords] = useState([]);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const fetchIncome = async () => {
-      const incomeList = await fetchDocuments('income');
-      setIncomeRecords(incomeList);
+      try {
+        const incomeList = await fetchDocuments('income');
+        setIncomeRecords(incomeList);
+      } catch (err) {
+        setError('Failed to load income records. Please try again later.');
+        console.error('Error fetching income:', err);
+      }
     };
 
     fetchIncome();
@@ -23,11 +30,15 @@ function Income() {
           <IncomeForm />
         </div>
         <div className="flex-1 bg-white p-6 shadow-lg rounded-lg">
-          <IncomeList incomes={incomeRecords} />
+          {error ? (
+            <p className="text-red-600">{error}</p>
+          ) : (
+            <IncomeList incomes={incomeRecords} />
+          )}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Income;
